@@ -69,3 +69,34 @@ The relationship between these concepts is sequential: feature detection identif
 
 Github Repo: https://github.com/Meiji-Y/Feature-Detection-and-Matching
 
+# Code Description
+
+Import Libraries: The code begins by importing the necessary libraries: OpenCV (cv2) for computer vision operations and NumPy (np) for numerical computations.
+
+Function Definition (get_camera_poses): A function named get_camera_poses is defined to estimate camera poses using consecutive frames and camera intrinsic parameters.
+
+Initialization: The function initializes an empty list camera_poses to store the camera pose matrices. The threshold variable sets a threshold value for matching quality.
+
+Feature Detection and Matching: The SIFT (Scale-Invariant Feature Transform) algorithm is used to detect and describe keypoints in consecutive frames. FLANN (Fast Library for Approximate Nearest Neighbors) is employed for efficient keypoint matching based on their descriptors.
+
+Loop Over Frames: The function loops over consecutive frames, starting from the second frame. For each pair of frames, it performs the following steps:
+
+Convert frames to grayscale.
+Detect and compute SIFT keypoints and descriptors.
+Match keypoints using FLANN or Brute Force with a distance ratio test.
+Filter and extract good matches.
+Essential Matrix Estimation: The Essential Matrix (E) is estimated using the cv2.findEssentialMat function. This matrix encodes the geometric relationship between matched keypoints in the two frames.
+
+Relative Pose Recovery: The camera's relative rotation (R) and translation (t) are recovered from the Essential Matrix using cv2.recoverPose.
+
+Transformation Matrix Composition: The rotation matrix and translation vector are combined to form a transformation matrix (T). This matrix represents the camera's pose change between frames.
+
+Accumulation of Camera Poses: The transformation matrix is stacked to create a 4x4 pose matrix, which is multiplied with the previous camera pose matrix. This accumulated matrix is added to the camera_poses list.
+
+Visualization (Optional): Feature matches between frames can be visualized using OpenCV's drawMatches function. The visualization is displayed, and the program waits for a key press before proceeding.
+
+Return Camera Poses: The function returns the list of accumulated camera pose matrices.
+
+Example Usage: The code provides an example of loading consecutive frames from image files, defining camera intrinsic parameters (K matrix), and calling the get_camera_poses function to estimate camera poses. The resulting camera poses are printed.
+
+In summary, the code demonstrates how to estimate camera poses between consecutive frames using the Essential Matrix, SIFT feature detection, and FLANN keypoint matching. It's a basic implementation of visual odometry, a technique used in robotics, augmented reality, and 3D reconstruction to track the camera's motion and position over time.
