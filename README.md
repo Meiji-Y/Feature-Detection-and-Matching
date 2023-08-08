@@ -67,7 +67,23 @@ In summary, FLANN is a powerful approach to speeding up the search for nearest n
 # Differences and Relationships:
 The relationship between these concepts is sequential: feature detection identifies keypoints, feature description generates descriptors for these keypoints, and feature matching establishes correspondences between keypoints in different images. The combination of these steps forms the basis of many computer vision tasks, such as image stitching, object recognition, and 3D reconstruction.
 
-Github Repo: https://github.com/Meiji-Y/Feature-Detection-and-Matching
+# You need to know:
+
+Camera Pose Estimation: The main goal of this code is to estimate the camera poses (relative motion and position) between consecutive frames. This is achieved using feature matching and the Essential Matrix.
+
+Feature Detection and Matching: The SIFT (Scale-Invariant Feature Transform) algorithm is used to detect keypoints in images and describe them with descriptors. These keypoints are then matched using FLANN for efficient and accurate matching.
+
+Essential Matrix: The Essential Matrix is a fundamental concept in stereo vision and visual odometry. It captures the essential geometric relationship between matched keypoints in two camera frames.
+
+RANSAC: The RANSAC algorithm is used for robust estimation. It helps filter out incorrect matches and outliers, making the pose estimation process more accurate.
+
+Transformation Matrix: The code forms a transformation matrix from the recovered relative rotation and translation. This matrix represents the camera's pose change between frames and is used to accumulate the camera poses.
+
+Accumulation of Poses: The camera poses are accumulated in the camera_poses list. This allows you to track the camera's trajectory over time.
+
+Intrinsic Parameters: The camera's intrinsic parameters, represented by the matrix K, are used for Essential Matrix calculation. These parameters include focal length and principal point.
+
+Loop Over Frames: The code iterates over consecutive frames, estimating poses between each pair of frames. This is a common approach in visual odometry where poses are estimated incrementally.
 
 # Code Description
 
